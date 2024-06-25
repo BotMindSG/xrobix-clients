@@ -1,6 +1,7 @@
 """
 This script monitors a specified input file for changes in a number.
 If the number changes to {start_task_number}, it submits a predefined task to the Xrobix Robot Management Platform API.
+When the task is submitted successfully, the script will then start the task.
 The script then listens for updates on the task status.
 When the task is completed, it writes the {end_task_number} to a specified output file.
 
@@ -92,8 +93,12 @@ def process_tasks(client, input_file_path, output_file_path):
                 task_id = response.get("task_id")
                 print(f"Task submitted with ID: {task_id}")
 
-                # Call get_task_updates API and listen for updates in a separate thread
+                # Start the task if submission is successful
                 if task_id:
+                    control_response = client.control_task(task_id, "start")
+                    print(f"Task {task_id} started: {control_response}")
+
+                    # Call get_task_updates API and listen for updates in a separate thread
                     update_thread = threading.Thread(target=listen_for_task_updates, args=(client, task_id, output_file_path))
                     update_thread.start()
         time.sleep(1)  # Check for changes every second
