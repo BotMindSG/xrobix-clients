@@ -7,7 +7,7 @@ client = XRobixClient(base_url="https://dev.xrobix.com/v1", username="your_usern
 task_data = {
     "name": "Sample Task",
     "description": "This is a sample task",
-    "robot_ids": ["robot_1"],
+    "robots": ["robot_1"],
     "schedule": {
         "time": "2024-07-01T10:00:00Z",
         "repeat": "none"

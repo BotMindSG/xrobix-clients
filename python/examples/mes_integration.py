@@ -76,7 +76,7 @@ def process_tasks(client, input_file_path, output_file_path):
             if number == start_task_number:
                 # Define the task data template
                 task_data = {
-                    "robot_ids": [robot_id],
+                    "robots": [robot_id],
                     "actions": [
                         {
                             "type": "navigate_to",
